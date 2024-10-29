@@ -30,17 +30,18 @@ export const routes = [
       //   path: "/profile",
       //   element: <Profile />,
       // },
-      {
-        icon: <TableCellsIcon {...icon} />,
-        name: "inventory",
-        path: "/tables",
-        element: <Tables />,
-      },
+      
       {
         icon: <InformationCircleIcon {...icon} />,
-        name: "invoice",
+        name: "Inventory",
         path: "/invoice",
         element: <Notifications />,
+      },
+      {
+        icon: <TableCellsIcon {...icon} />,
+        name: "Reports",
+        path: "/tables",
+        element: <Tables />,
       },
       // {
       //   icon: <InformationCircleIcon {...icon} />,

@@ -7,32 +7,87 @@ import {
 
 export const statisticsCardsData = [
   {
-    color: "gray",
+    color: "blue",
     icon: BanknotesIcon,
-    title: "Today's Money",
-    value: "$53k",
+    title: "Total Revenue",
+    value: "R460,500",
     footer: {
       color: "text-green-500",
       value: "+55%",
-      label: "than last week",
+      label: "than last month",
     },
   },
   {
-    color: "gray",
+    color: "red",
+    icon: UserPlusIcon,
+    title: "Total Expenses",
+    value: "R70,462",
+    footer: {
+      color: "text-red-500",
+      value: "-20%",
+      label: "than last month",
+    },
+  },
+  {
+    color: "green",
     icon: UsersIcon,
-    title: "Today's Users",
-    value: "2,300",
+    title: "Profit",
+    value: "R219,300",
     footer: {
       color: "text-green-500",
-      value: "+3%",
+      value: "+11%",
       label: "than last month",
     },
   },
   {
     color: "gray",
     icon: UserPlusIcon,
-    title: "New Clients",
-    value: "3,462",
+    title: "Total Stock",
+    value: "145",
+    footer: {
+      color: "text-red-500",
+      value: "-2%",
+      label: "than last month",
+    },
+  },
+  {
+    color: "orange",
+    icon: ChartBarIcon,
+    title: "Sales",
+    value: "R103,430",
+    footer: {
+      color: "text-green-500",
+      value: "+5%",
+      label: "than yesterday",
+    },
+  },
+  // {
+  //   color: "yellow",
+  //   icon: UserPlusIcon,
+  //   title: "New Clients",
+  //   value: "24",
+  //   footer: {
+  //     color: "text-red-500",
+  //     value: "-2%",
+  //     label: "than yesterday",
+  //   },
+  // },
+  {
+    color: "purple",
+    icon: ChartBarIcon,
+    title: "Cows",
+    value: "100",
+    footer: {
+      color: "text-green-500",
+      value: "+5%",
+      label: "than yesterday",
+    },
+  },,
+  {
+    color: "yellow",
+    icon: UserPlusIcon,
+    title: "Sheeps",
+    value: "39",
     footer: {
       color: "text-red-500",
       value: "-2%",
@@ -42,8 +97,8 @@ export const statisticsCardsData = [
   {
     color: "gray",
     icon: ChartBarIcon,
-    title: "Sales",
-    value: "$103,430",
+    title: "Goats",
+    value: "53",
     footer: {
       color: "text-green-500",
       value: "+5%",
