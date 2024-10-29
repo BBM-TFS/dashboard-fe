@@ -41,13 +41,13 @@ export function Footer({ brandName, brandLink, routes }) {
 }
 
 Footer.defaultProps = {
-  brandName: "Creative Tim",
-  brandLink: "https://www.creative-tim.com",
+  brandName: "SST Groupholding",
+  brandLink: "https://sstgroupholding.co.za/",
   routes: [
-    { name: "Creative Tim", path: "https://www.creative-tim.com" },
-    { name: "About Us", path: "https://www.creative-tim.com/presentation" },
-    { name: "Blog", path: "https://www.creative-tim.com/blog" },
-    { name: "License", path: "https://www.creative-tim.com/license" },
+    { name: "SST Groupholding", path: "https://sstgroupholding.co.za" },
+    { name: "About Us", path: "https://sstgroupholding.co.za/about.html" },
+    { name: "Services", path: "https://sstgroupholding.co.za/services.html" },
+    { name: "License", path: "https://sstgroupholding.co.za/license" },
   ],
 };
 

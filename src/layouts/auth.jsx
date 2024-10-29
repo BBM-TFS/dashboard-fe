@@ -12,24 +12,24 @@ export function Auth() {
   const navbarRoutes = [
     {
       name: "dashboard",
-      path: "/dashboard/home",
+      path: "/dashboard",
       icon: ChartPieIcon,
     },
-    {
-      name: "profile",
-      path: "/dashboard/home",
-      icon: UserIcon,
-    },
-    {
-      name: "sign up",
-      path: "/auth/sign-up",
-      icon: UserPlusIcon,
-    },
-    {
-      name: "sign in",
-      path: "/auth/sign-in",
-      icon: ArrowRightOnRectangleIcon,
-    },
+    // {
+    //   name: "profile",
+    //   path: "/dashboard/home",
+    //   icon: UserIcon,
+    // },
+    // {
+    //   name: "sign up",
+    //   path: "/auth/sign-up",
+    //   icon: UserPlusIcon,
+    // },
+    // {
+    //   name: "sign in",
+    //   path: "/auth/sign-in",
+    //   icon: ArrowRightOnRectangleIcon,
+    // },
   ];
 
   return (
