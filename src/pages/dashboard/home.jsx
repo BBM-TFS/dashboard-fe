@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import {
   Typography,
   Card,
@@ -26,8 +26,25 @@ import {
   ordersOverviewData,
 } from "@/data";
 import { CheckCircleIcon, ClockIcon } from "@heroicons/react/24/solid";
+import { db } from '../../firebaseConfig';
+import { collection, getDocs } from 'firebase/firestore';
 
 export function Home() {
+  const [animals, setAnimals] = useState([]);
+
+  useEffect(() => {
+    const fetchAnimals = async () => {
+      try {
+        const querySnapshot = await getDocs(collection(db, 'animals'));
+        setAnimals(querySnapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() })));
+      } catch (error) {
+        console.error("Error fetching data: ", error);
+      }
+    };
+
+    fetchAnimals();
+  }, []);
+
   return (
     <div className="mt-12">
       <div className="mb-12 grid gap-y-10 gap-x-6 md:grid-cols-2 xl:grid-cols-4">

@@ -1,3 +1,4 @@
+import React, { useEffect, useState } from "react";
 import {
   Card,
   CardHeader,
@@ -12,6 +13,23 @@ import { EllipsisVerticalIcon } from "@heroicons/react/24/outline";
 import { authorsTableData, projectsTableData } from "@/data";
 
 export function Tables() {
+
+  const [animals, setAnimals] = useState([]);
+
+  useEffect(() => {
+    const fetchAnimals = async () => {
+      try {
+        const querySnapshot = await getDocs(collection(db, 'animals'));
+        setAnimals(querySnapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() })));
+      } catch (error) {
+        console.error("Error fetching data: ", error);
+      }
+    };
+
+    fetchAnimals();
+  }, []);
+
+  
   return (
     <div className="mt-12 mb-8 flex flex-col gap-12">
       <Card>

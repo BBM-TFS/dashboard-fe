@@ -7,6 +7,7 @@ import {
   RectangleStackIcon,
 } from "@heroicons/react/24/solid";
 import { Home, Profile, Tables, Notifications } from "@/pages/dashboard";
+
 import { SignIn, SignUp } from "@/pages/auth";
 
 const icon = {
@@ -41,6 +42,12 @@ export const routes = [
         path: "/invoice",
         element: <Notifications />,
       },
+      // {
+      //   icon: <InformationCircleIcon {...icon} />,
+      //   name: "Test",
+      //   path: "/test",
+      //   element: <Test />,
+      // },
     ],
   },
   // {
