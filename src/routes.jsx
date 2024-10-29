@@ -31,16 +31,16 @@ export const routes = [
       // },
       {
         icon: <TableCellsIcon {...icon} />,
-        name: "tables",
+        name: "inventory",
         path: "/tables",
         element: <Tables />,
       },
-      // {
-      //   icon: <InformationCircleIcon {...icon} />,
-      //   name: "notifications",
-      //   path: "/notifications",
-      //   element: <Notifications />,
-      // },
+      {
+        icon: <InformationCircleIcon {...icon} />,
+        name: "invoice",
+        path: "/invoice",
+        element: <Notifications />,
+      },
     ],
   },
   // {
