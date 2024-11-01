@@ -6,7 +6,7 @@ import {
   ServerStackIcon,
   RectangleStackIcon,
 } from "@heroicons/react/24/solid";
-import { Home, Profile, Tables, Notifications } from "@/pages/dashboard";
+import { Home, Profile, Tables, Notifications, Upload, DownloadFile } from "@/pages/dashboard";
 
 import { SignIn, SignUp } from "@/pages/auth";
 
@@ -42,6 +42,18 @@ export const routes = [
         name: "Reports",
         path: "/tables",
         element: <Tables />,
+      },
+      {
+        icon: <TableCellsIcon {...icon} />,
+        name: "Upload",
+        path: "/upload",
+        element: <Upload />,
+      },
+      {
+        icon: <TableCellsIcon {...icon} />,
+        name: "Download",
+        path: "/download",
+        element: <DownloadFile />,
       },
       // {
       //   icon: <InformationCircleIcon {...icon} />,

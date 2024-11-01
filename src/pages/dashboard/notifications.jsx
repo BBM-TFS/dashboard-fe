@@ -8,11 +8,23 @@ import {
   Avatar,
   Chip,
 } from "@material-tailwind/react";
+import { S3Client, GetObjectCommand } from "@aws-sdk/client-s3";
 import { db } from '../../firebaseConfig';
 import { collection, getDocs } from 'firebase/firestore';
+import { saveAs } from 'file-saver'; // Install this package
 
 export function Notifications() {
   const [animals, setAnimals] = useState([]);
+  const [fileNames, setFileNames] = useState([]);
+
+  const config = {
+    region: import.meta.env.VITE_REGION,
+    credentials: {
+      accessKeyId: import.meta.env.VITE_ACCESS,
+      secretAccessKey: import.meta.env.VITE_SECRET,
+    },
+    bucketName: import.meta.env.VITE_BUCKET_NAME,
+  };
 
   useEffect(() => {
     const fetchAnimals = async () => {
@@ -27,6 +39,50 @@ export function Notifications() {
     fetchAnimals();
   }, []);
 
+
+     // This function fetches the list of files from the S3 bucket
+     const fetchFiles = async () => {
+      const s3Client = new S3Client({ region: config.region, credentials: config.credentials });
+      const command = new ListObjectsV2Command({ Bucket: config.bucketName });
+
+      try {
+          const data = await s3Client.send(command);
+          const names = data.Contents.map((file) => file.Key); // Extract the file names
+          setFileNames(names);
+      } catch (err) {
+          console.error("Error fetching file names:", err);
+      }
+  };
+  
+  useEffect(() => {
+    fetchFiles();
+}, []);
+
+
+ 
+
+  const downloadFile = async (fileNames, searchTerm) => {
+
+    const filteredFileName = searchTerm
+    ? fileNames.filter(fileName => fileName.toLowerCase().includes(searchTerm.toLowerCase()))
+    : fileNames;
+
+    const s3Client = new S3Client({ region: config.region, credentials: config.credentials });
+    
+    const command = new GetObjectCommand({
+      Bucket: config.bucketName,
+      Key: filteredFileName,
+    });
+
+    try {
+      const data = await s3Client.send(command);
+      const file = new Blob([data.Body], { type: data.ContentType });
+      saveAs(file, fileName); // Using file-saver to download the file
+    } catch (err) {
+      console.error("Error downloading file:", err);
+    }
+  };
+
   return (
     <div className="mt-12 mb-8 flex flex-col gap-12">
       <Card>
@@ -40,7 +96,7 @@ export function Notifications() {
             <table className="w-full min-w-[640px] table-auto">
               <thead>
                 <tr>
-                  {["ID", "Type", "Weight", "Age", "Confirmed", "AuctionPrice","Selling Price", "Color", "Gender", "Arrival Date",""].map((header) => (
+                  {["ID", "Type", "Weight", "Age", "Confirmed", "AuctionPrice","Selling Price", "Color", "Gender", "Arrival Date", "Invoice",""].map((header) => (
                     <th key={header} className="border-b border-blue-gray-50 py-3 px-5 text-left">
                       <Typography variant="small" className="text-[11px] font-bold uppercase text-blue-gray-400">
                         {header}
@@ -98,6 +154,12 @@ export function Notifications() {
                     <td className={`py-3 px-5 ${key === animals.length - 1 ? "" : "border-b border-blue-gray-50"}`}>
                       <Typography variant="small" color="blue-gray" className="font-semibold">
                         {arrivalDate? arrivalDate.toString() : "N/A"} 
+                      </Typography>
+                    </td>
+                    <td className={`py-3 px-5 ${key === animals.length - 1 ? "" : "border-b border-blue-gray-50"}`}>
+                      <Typography variant="small" color="blue-gray" className="font-semibold">
+                      <button onClick={() => downloadFile(fileNames, id)}>  Download
+                      </button>
                       </Typography>
                     </td>
                     <td className={`py-3 px-5 ${key === animals.length - 1 ? "" : "border-b border-blue-gray-50"}`}>
