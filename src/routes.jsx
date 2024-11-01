@@ -24,12 +24,12 @@ export const routes = [
         path: "/",
         element: <Home />,
       },
-      {
-        icon: <UserCircleIcon {...icon} />,
-        name: "profile",
-        path: "/profile",
-        element: <Profile />,
-      },
+      // {
+      //   icon: <UserCircleIcon {...icon} />,
+      //   name: "profile",
+      //   path: "/profile",
+      //   element: <Profile />,
+      // },
       
       {
         icon: <InformationCircleIcon {...icon} />,
@@ -67,12 +67,12 @@ export const routes = [
     title: "auth pages",
     layout: "auth",
     pages: [
-      {
-        icon: <ServerStackIcon {...icon} />,
-        name: "sign in",
-        path: "/sign-in",
-        element: <SignIn />,
-      },
+      // {
+      //   icon: <ServerStackIcon {...icon} />,
+      //   name: "sign in",
+      //   path: "/sign-in",
+      //   element: <SignIn />,
+      // },
       // {
       //   icon: <RectangleStackIcon {...icon} />,
       //   name: "sign up",

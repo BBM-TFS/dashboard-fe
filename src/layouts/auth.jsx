@@ -15,11 +15,11 @@ export function Auth() {
       path: "/",
       icon: ChartPieIcon,
     },
-    {
-      name: "profile",
-      path: "/",
-      icon: UserIcon,
-    },
+    // {
+    //   name: "profile",
+    //   path: "/",
+    //   icon: UserIcon,
+    // },
     {
       name: "sign up",
       path: "/auth/sign-up",
