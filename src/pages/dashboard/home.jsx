@@ -14,13 +14,18 @@ import {
   Progress,
 } from "@material-tailwind/react";
 import {
+  BanknotesIcon,
+  UserPlusIcon,
+  UsersIcon,
+  ChartBarIcon,
+} from "@heroicons/react/24/solid";
+import {
   EllipsisVerticalIcon,
   ArrowUpIcon,
 } from "@heroicons/react/24/outline";
 import { StatisticsCard } from "@/widgets/cards";
 import { StatisticsChart } from "@/widgets/charts";
 import {
-  statisticsCardsData,
   statisticsChartsData,
   projectsTableData,
   ordersOverviewData,
@@ -31,24 +36,169 @@ import { collection, getDocs } from 'firebase/firestore';
 
 export function Home() {
   const [animals, setAnimals] = useState([]);
+  const [expenses, setExpense] = useState([]);
+  const [revenue, setRevenue] = useState([]);
+  const [totalStock, setTotalStock] = useState([]);
+  const [sales, setSales] = useState([]);
+  const [cows, setCows] = useState([]);
+  const [sheeps, setSheeps] = useState([]);
+  const [goats, setGoats] = useState([]);
 
   useEffect(() => {
     const fetchAnimals = async () => {
       try {
         const querySnapshot = await getDocs(collection(db, 'animals'));
-        setAnimals(querySnapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() })));
+        const animalsData = querySnapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
+        setAnimals(animalsData);
+        
+        // Call your calculations directly after setting the data
+        getTotalRevenue(animalsData);
+        getTotalExpense(animalsData);
+        getTotalStock(animalsData);
+        getSales(animalsData);
+        getCountAnimals(animalsData);
+        
       } catch (error) {
         console.error("Error fetching data: ", error);
       }
     };
-
+  
+    // Update each calculation function to accept animals as argument
+    const getTotalRevenue = (animalsList) => {
+      const revenue = animalsList.reduce((acc, animal) => acc + (animal.sellingPrice || 0), 0);
+      console.log("Revenue: ", revenue);
+      setRevenue(revenue);
+    };
+  
+    const getTotalExpense = (animalsList) => {
+      const expense = animalsList.reduce((acc, animal) => acc + (animal.auctionPrice || 0), 0);
+      setExpense(expense);
+    };
+  
+    const getTotalStock = (animalsList) => {
+      setTotalStock(animalsList.length);
+    };
+  
+    const getSales = (animalsList) => {
+      const sale = animalsList.reduce((acc, animal) => acc + (animal.isPurchased ? (animal.sellingPrice || 0) : 0), 0);
+      setSales(sale);
+    };
+  
+    const getCountAnimals = (animalsList) => {
+      let cow = 0, sheep = 0, goat = 0;
+      animalsList.forEach((animal) => {
+        if (animal.animalType === "Cow") cow += 1;
+        else if (animal.animalType === "Sheep") sheep += 1;
+        else if (animal.animalType === "Goat") goat += 1; // Make sure there's a check for "Goat"
+      });
+      setCows(cow);
+      setSheeps(sheep);
+      setGoats(goat);
+    };
+  
     fetchAnimals();
-  }, []);
+  
+    // Cleanup code if necessary
+    // return () => { /* cancel subscriptions or event listeners, if any */ }
+  
+  }, []); // Empty dependency array means this runs once when the component mounts
+
+
+  const statisticsCardsData_ = [
+    {
+      color: "blue",
+      icon: BanknotesIcon,
+      title: "Total Revenue",
+      value: "R" + revenue.toString(),
+      footer: {
+        color: "text-green-500",
+        value: "+55%",
+        label: "than last month",
+      },
+    },
+    {
+      color: "red",
+      icon: UserPlusIcon,
+      title: "Total Expenses",
+      value: "R" + expenses.toString(),
+      footer: {
+        color: "text-red-500",
+        value: "-20%",
+        label: "than last month",
+      },
+    },
+    {
+      color: "green",
+      icon: UsersIcon,
+      title: "Profit",
+      value: "R" + (revenue - expenses).toString(),
+      footer: {
+        color: "text-green-500",
+        value: "+11%",
+        label: "than last month",
+      },
+    },
+    {
+      color: "gray",
+      icon: UserPlusIcon,
+      title: "Total Stock",
+      value: totalStock.toString(),
+      footer: {
+        color: "text-red-500",
+        value: "-2%",
+        label: "than last month",
+      },
+    },
+    {
+      color: "orange",
+      icon: ChartBarIcon,
+      title: "Sales",
+      value: "R" + sales.toString(),
+      footer: {
+        color: "text-green-500",
+        value: "+5%",
+        label: "than yesterday",
+      },
+    },
+    {
+      color: "purple",
+      icon: ChartBarIcon,
+      title: "Cows",
+      value: cows.toString(),
+      footer: {
+        color: "text-green-500",
+        value: "+5%",
+        label: "than yesterday",
+      },
+    }, ,
+    {
+      color: "yellow",
+      icon: UserPlusIcon,
+      title: "Sheeps",
+      value: sheeps.toString(),
+      footer: {
+        color: "text-red-500",
+        value: "-2%",
+        label: "than yesterday",
+      },
+    },
+    {
+      color: "gray",
+      icon: ChartBarIcon,
+      title: "Goats",
+      value: goats.toString(),
+      footer: {
+        color: "text-green-500",
+        value: "+5%",
+        label: "than yesterday",
+      },
+    },
+  ];
 
   return (
     <div className="mt-12">
       <div className="mb-12 grid gap-y-10 gap-x-6 md:grid-cols-2 xl:grid-cols-4">
-        {statisticsCardsData.map(({ icon, title, footer, ...rest }) => (
+        {statisticsCardsData_.map(({ icon, title, footer, ...rest }) => (
           <StatisticsCard
             key={title}
             {...rest}
@@ -92,14 +242,14 @@ export function Home() {
           >
             <div>
               <Typography variant="h6" color="blue-gray" className="mb-1">
-                Projects
+                Livestock Revenue
               </Typography>
               <Typography
                 variant="small"
                 className="flex items-center gap-1 font-normal text-blue-gray-600"
               >
                 <CheckCircleIcon strokeWidth={3} className="h-4 w-4 text-blue-gray-200" />
-                <strong>30 done</strong> this month
+                <strong>Specific category</strong> Currently
               </Typography>
             </div>
             <Menu placement="left-start">
@@ -123,7 +273,7 @@ export function Home() {
             <table className="w-full min-w-[640px] table-auto">
               <thead>
                 <tr>
-                  {["companies", "members", "budget", "completion"].map(
+                  {["Animal Type", "Revenue", "Expense", "Profit"].map(
                     (el) => (
                       <th
                         key={el}
@@ -143,11 +293,10 @@ export function Home() {
               <tbody>
                 {projectsTableData.map(
                   ({ img, name, members, budget, completion }, key) => {
-                    const className = `py-3 px-5 ${
-                      key === projectsTableData.length - 1
+                    const className = `py-3 px-5 ${key === projectsTableData.length - 1
                         ? ""
                         : "border-b border-blue-gray-50"
-                    }`;
+                      }`;
 
                     return (
                       <tr key={name}>
@@ -171,9 +320,8 @@ export function Home() {
                                 alt={name}
                                 size="xs"
                                 variant="circular"
-                                className={`cursor-pointer border-2 border-white ${
-                                  key === 0 ? "" : "-ml-2.5"
-                                }`}
+                                className={`cursor-pointer border-2 border-white ${key === 0 ? "" : "-ml-2.5"
+                                  }`}
                               />
                             </Tooltip>
                           ))}
@@ -218,7 +366,7 @@ export function Home() {
             className="m-0 p-6"
           >
             <Typography variant="h6" color="blue-gray" className="mb-2">
-              Orders Overview
+              Food Consumption
             </Typography>
             <Typography
               variant="small"
@@ -228,7 +376,7 @@ export function Home() {
                 strokeWidth={3}
                 className="h-3.5 w-3.5 text-green-500"
               />
-              <strong>24%</strong> this month
+              <strong>%</strong> this month
             </Typography>
           </CardHeader>
           <CardBody className="pt-0">
@@ -236,11 +384,10 @@ export function Home() {
               ({ icon, color, title, description }, key) => (
                 <div key={title} className="flex items-start gap-4 py-3">
                   <div
-                    className={`relative p-1 after:absolute after:-bottom-6 after:left-2/4 after:w-0.5 after:-translate-x-2/4 after:bg-blue-gray-50 after:content-[''] ${
-                      key === ordersOverviewData.length - 1
+                    className={`relative p-1 after:absolute after:-bottom-6 after:left-2/4 after:w-0.5 after:-translate-x-2/4 after:bg-blue-gray-50 after:content-[''] ${key === ordersOverviewData.length - 1
                         ? "after:h-0"
                         : "after:h-4/6"
-                    }`}
+                      }`}
                   >
                     {React.createElement(icon, {
                       className: `!w-5 !h-5 ${color}`,

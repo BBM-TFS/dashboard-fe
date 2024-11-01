@@ -11,19 +11,19 @@ export const ordersOverviewData = [
   {
     icon: BellIcon,
     color: "text-blue-gray-300",
-    title: "$2400, Design changes",
+    title: "R25000 Cow",
     description: "22 DEC 7:20 PM",
   },
   {
     icon: PlusCircleIcon,
     color: "text-blue-gray-300",
-    title: "New order #1832412",
+    title: "R7500 Sheep",
     description: "21 DEC 11 PM",
   },
   {
     icon: ShoppingCartIcon,
     color: "text-blue-gray-300",
-    title: "Server payments for April",
+    title: "R8500 Goat",
     description: "21 DEC 9:34 PM",
   }
 ];

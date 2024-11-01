@@ -16,7 +16,7 @@ const icon = {
 
 export const routes = [
   {
-    layout: "dashboard",
+    layout: "",
     pages: [
       {
         icon: <HomeIcon {...icon} />,
@@ -24,12 +24,12 @@ export const routes = [
         path: "/",
         element: <Home />,
       },
-      // {
-      //   icon: <UserCircleIcon {...icon} />,
-      //   name: "profile",
-      //   path: "/profile",
-      //   element: <Profile />,
-      // },
+      {
+        icon: <UserCircleIcon {...icon} />,
+        name: "profile",
+        path: "/profile",
+        element: <Profile />,
+      },
       
       {
         icon: <InformationCircleIcon {...icon} />,
@@ -63,24 +63,24 @@ export const routes = [
       // },
     ],
   },
-  // {
-  //   title: "auth pages",
-  //   layout: "auth",
-  //   pages: [
-  //     {
-  //       icon: <ServerStackIcon {...icon} />,
-  //       name: "sign in",
-  //       path: "/sign-in",
-  //       element: <SignIn />,
-  //     },
-  //     // {
-  //     //   icon: <RectangleStackIcon {...icon} />,
-  //     //   name: "sign up",
-  //     //   path: "/sign-up",
-  //     //   element: <SignUp />,
-  //     // },
-  //   ],
-  // },
+  {
+    title: "auth pages",
+    layout: "auth",
+    pages: [
+      {
+        icon: <ServerStackIcon {...icon} />,
+        name: "sign in",
+        path: "/sign-in",
+        element: <SignIn />,
+      },
+      // {
+      //   icon: <RectangleStackIcon {...icon} />,
+      //   name: "sign up",
+      //   path: "/sign-up",
+      //   element: <SignUp />,
+      // },
+    ],
+  },
 ];
 
 export default routes;

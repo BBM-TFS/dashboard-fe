@@ -11,25 +11,25 @@ import routes from "@/routes";
 export function Auth() {
   const navbarRoutes = [
     {
-      name: "dashboard",
-      path: "/dashboard",
+      name: "",
+      path: "/",
       icon: ChartPieIcon,
     },
-    // {
-    //   name: "profile",
-    //   path: "/dashboard/home",
-    //   icon: UserIcon,
-    // },
-    // {
-    //   name: "sign up",
-    //   path: "/auth/sign-up",
-    //   icon: UserPlusIcon,
-    // },
-    // {
-    //   name: "sign in",
-    //   path: "/auth/sign-in",
-    //   icon: ArrowRightOnRectangleIcon,
-    // },
+    {
+      name: "profile",
+      path: "/",
+      icon: UserIcon,
+    },
+    {
+      name: "sign up",
+      path: "/auth/sign-up",
+      icon: UserPlusIcon,
+    },
+    {
+      name: "sign in",
+      path: "/auth/sign-in",
+      icon: ArrowRightOnRectangleIcon,
+    },
   ];
 
   return (
