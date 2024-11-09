@@ -55,12 +55,12 @@ export const routes = [
         path: "/download",
         element: <DownloadFile />,
       },
-      // {
-      //   icon: <InformationCircleIcon {...icon} />,
-      //   name: "Test",
-      //   path: "/test",
-      //   element: <Test />,
-      // },
+      {
+        icon: <InformationCircleIcon {...icon} />,
+        name: "Expense",
+        path: "/expense",
+        element: <Profile />,
+      },
     ],
   },
   {

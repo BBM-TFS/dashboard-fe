@@ -10,6 +10,7 @@ import {
   Tab,
   Switch,
   Tooltip,
+  Input,
   Button,
 } from "@material-tailwind/react";
 import {
@@ -32,22 +33,15 @@ export function Profile() {
         <CardBody className="p-4">
           <div className="mb-10 flex items-center justify-between flex-wrap gap-6">
             <div className="flex items-center gap-6">
-              <Avatar
-                src="/img/bruce-mars.jpeg"
-                alt="bruce-mars"
-                size="xl"
-                variant="rounded"
-                className="rounded-lg shadow-lg shadow-blue-gray-500/40"
-              />
               <div>
                 <Typography variant="h5" color="blue-gray" className="mb-1">
-                  Richard Davis
+                  Total Expenses
                 </Typography>
                 <Typography
                   variant="small"
                   className="font-normal text-blue-gray-600"
                 >
-                  CEO / Co-Founder
+                  These are all the expense accumulated monthly
                 </Typography>
               </div>
             </div>
@@ -75,37 +69,40 @@ export function Profile() {
               <Typography variant="h6" color="blue-gray" className="mb-3">
                 Platform Settings
               </Typography>
-              <div className="flex flex-col gap-12">
-                {platformSettingsData.map(({ title, options }) => (
-                  <div key={title}>
-                    <Typography className="mb-4 block text-xs font-semibold uppercase text-blue-gray-500">
-                      {title}
-                    </Typography>
-                    <div className="flex flex-col gap-6">
-                      {options.map(({ checked, label }) => (
-                        <Switch
-                          key={label}
-                          id={label}
-                          label={label}
-                          defaultChecked={checked}
-                          labelProps={{
-                            className: "text-sm font-normal text-blue-gray-500",
-                          }}
-                        />
-                      ))}
-                    </div>
-                  </div>
-                ))}
-              </div>
+              <div className="flex flex-col gap-4">
+                <Input label="Food" />
+                <Input label="Rent" />
+                <Input label="Fuel" />
+                <Input label="Electricity" />
+                <Input label="Water bill" />
+                <Input label="Labour" />
+                <Input label="Printer & Ink" />
+                <Input label="Paper" />
+                <Input label="Salaries" />
+                <Input label="Tags" />
+                <Button variant="text" size="sm" color="blue">
+                  upload proof
+                </Button>   
+                <Button variant="text" size="sm" color="blue">
+                  Submit
+                </Button>                       
+                </div>
             </div>
             <ProfileInfoCard
-              title="Profile Information"
-              description="Hi, I'm Alec Thompson, Decisions: If you can't decide, the answer is no. If two equally difficult paths, choose the one more painful in the short term (pain avoidance is creating an illusion of equality)."
+              title="Current Monthly Costs"
+              description="These are costs which will be deducted at the end of the month."
               details={{
-                "first name": "Alec M. Thompson",
-                mobile: "(44) 123 1234 123",
-                email: "alecthompson@mail.com",
-                location: "USA",
+                "Food": "R0.00",
+                "Rent": "R0.00",
+                "Fuel": "R0.00",
+                "Electricity": "R0.00",
+                "Water bill": "R0.00",
+                "Labour": "R0.00",
+                "Printer & Ink": "R0.00",
+                "Paper": "R0.00",
+                "Salaries": "R0.00",
+                "Tags": "R0.00",
+                "Download": "---",
                 social: (
                   <div className="flex items-center gap-4">
                     <i className="fa-brands fa-facebook text-blue-700" />
@@ -122,7 +119,7 @@ export function Profile() {
             />
             <div>
               <Typography variant="h6" color="blue-gray" className="mb-3">
-                Platform Settings
+                Total Monthly Cost
               </Typography>
               <ul className="flex flex-col gap-6">
                 {conversationsData.map((props) => (
@@ -131,85 +128,12 @@ export function Profile() {
                     {...props}
                     action={
                       <Button variant="text" size="sm">
-                        reply
+                        download proof
                       </Button>
                     }
                   />
                 ))}
               </ul>
-            </div>
-          </div>
-          <div className="px-4 pb-4">
-            <Typography variant="h6" color="blue-gray" className="mb-2">
-              Projects
-            </Typography>
-            <Typography
-              variant="small"
-              className="font-normal text-blue-gray-500"
-            >
-              Architects design houses
-            </Typography>
-            <div className="mt-6 grid grid-cols-1 gap-12 md:grid-cols-2 xl:grid-cols-4">
-              {projectsData.map(
-                ({ img, title, description, tag, route, members }) => (
-                  <Card key={title} color="transparent" shadow={false}>
-                    <CardHeader
-                      floated={false}
-                      color="gray"
-                      className="mx-0 mt-0 mb-4 h-64 xl:h-40"
-                    >
-                      <img
-                        src={img}
-                        alt={title}
-                        className="h-full w-full object-cover"
-                      />
-                    </CardHeader>
-                    <CardBody className="py-0 px-1">
-                      <Typography
-                        variant="small"
-                        className="font-normal text-blue-gray-500"
-                      >
-                        {tag}
-                      </Typography>
-                      <Typography
-                        variant="h5"
-                        color="blue-gray"
-                        className="mt-1 mb-2"
-                      >
-                        {title}
-                      </Typography>
-                      <Typography
-                        variant="small"
-                        className="font-normal text-blue-gray-500"
-                      >
-                        {description}
-                      </Typography>
-                    </CardBody>
-                    <CardFooter className="mt-6 flex items-center justify-between py-0 px-1">
-                      <Link to={route}>
-                        <Button variant="outlined" size="sm">
-                          view project
-                        </Button>
-                      </Link>
-                      <div>
-                        {members.map(({ img, name }, key) => (
-                          <Tooltip key={name} content={name}>
-                            <Avatar
-                              src={img}
-                              alt={name}
-                              size="xs"
-                              variant="circular"
-                              className={`cursor-pointer border-2 border-white ${
-                                key === 0 ? "" : "-ml-2.5"
-                              }`}
-                            />
-                          </Tooltip>
-                        ))}
-                      </div>
-                    </CardFooter>
-                  </Card>
-                )
-              )}
             </div>
           </div>
         </CardBody>
