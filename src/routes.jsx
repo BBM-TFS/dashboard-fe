@@ -1,11 +1,4 @@
-import {
-  HomeIcon,
-  UserCircleIcon,
-  TableCellsIcon,
-  InformationCircleIcon,
-  ServerStackIcon,
-  RectangleStackIcon,
-} from "@heroicons/react/24/solid";
+import * as solid from "@heroicons/react/24/solid";
 import { Home, Profile, Tables, Notifications, Upload, DownloadFile } from "@/pages/dashboard";
 
 import { SignIn, SignUp } from "@/pages/auth";
@@ -19,7 +12,7 @@ export const routes = [
     layout: "",
     pages: [
       {
-        icon: <HomeIcon {...icon} />,
+        icon: <solid.HomeIcon {...icon} />,
         name: "dashboard",
         path: "/",
         element: <Home />,
@@ -30,33 +23,32 @@ export const routes = [
       //   path: "/profile",
       //   element: <Profile />,
       // },
-      
       {
-        icon: <InformationCircleIcon {...icon} />,
+        icon: <solid.InformationCircleIcon {...icon} />,
         name: "Inventory",
         path: "/invoice",
         element: <Notifications />,
       },
       {
-        icon: <TableCellsIcon {...icon} />,
+        icon: <solid.TableCellsIcon {...icon} />,
         name: "Reports",
         path: "/tables",
         element: <Tables />,
       },
       {
-        icon: <TableCellsIcon {...icon} />,
+        icon: <solid.TableCellsIcon {...icon} />,
         name: "Upload",
         path: "/upload",
         element: <Upload />,
       },
       {
-        icon: <TableCellsIcon {...icon} />,
+        icon: <solid.TableCellsIcon {...icon} />,
         name: "Download",
         path: "/download",
         element: <DownloadFile />,
       },
       {
-        icon: <InformationCircleIcon {...icon} />,
+        icon: <solid.InformationCircleIcon {...icon} />,
         name: "Expense",
         path: "/expense",
         element: <Profile />,

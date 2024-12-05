@@ -5,12 +5,12 @@ export function MessageCard({ img, name, message, action }) {
   return (
     <div className="flex items-center justify-between gap-4">
       <div className="flex items-center gap-4">
-        <Avatar
+        {/* <Avatar
           src={img}
           alt={name}
           variant="rounded"
           className="shadow-lg shadow-blue-gray-500/25"
-        />
+        /> */}
         <div>
           <Typography
             variant="small"
