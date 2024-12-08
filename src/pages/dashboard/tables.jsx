@@ -44,7 +44,7 @@ export function Tables() {
           <table className="w-full min-w-[640px] table-auto">
             <thead>
               <tr>
-                {["Animals", "Selling Price", "Deposite", "Balance", ""].map((el) => (
+                {["Animals", "Selling Price", "Deposite", "Arrived", "Balance", ""].map((el) => (
                   <th
                     key={el}
                     className="border-b border-blue-gray-50 py-3 px-5 text-left"
@@ -60,8 +60,8 @@ export function Tables() {
               </tr>
             </thead>
             <tbody>
-              {animals.filter(animal => animal.isPurchased).map(
-                ({ id, animalType, sellingPrice, depositAmount, online }, key) => {
+              {animals.filter(animal => (animal.isPurchased || animal.depositAmount > 0)).map(
+                ({ id, animalType, sellingPrice, depositAmount, confirmationTimestamp, online }, key) => {
                   const className = `py-3 px-5 ${
                     key === authorsTableData.length - 1
                       ? ""
@@ -91,6 +91,13 @@ export function Tables() {
                       <td className={className}>
                         <Typography className="text-xs font-semibold text-blue-gray-600">
                           {depositAmount}
+                        </Typography>
+                      </td>
+                      <td className={className}>
+                        <Typography className="text-xs font-semibold text-blue-gray-600">
+                          {confirmationTimestamp ? 
+                          (new Date(confirmationTimestamp.seconds * 1000).toLocaleString('en-GB', { timeZone: 'Africa/Johannesburg', hour12: false, year: 'numeric', month: 'long', day: 'numeric', hour: '2-digit', minute: '2-digit', second: '2-digit' })).toString() 
+                          : "N/A"}
                         </Typography>
                       </td>
                       <td className={className}>
