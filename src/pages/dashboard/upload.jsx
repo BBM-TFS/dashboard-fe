@@ -1,12 +1,12 @@
 import React, { useState } from "react";
 import { S3Client, PutObjectCommand } from "@aws-sdk/client-s3";
-import { Card, CardHeader, CardBody, Typography, Button } from "@material-tailwind/react";
-import { toast, ToastContainer } from "react-toastify"; // Import Toast components
-import 'react-toastify/dist/ReactToastify.css'; // Import styles for toast
+import { Card, CardHeader, CardBody, Typography, Button, Select, Option } from "@material-tailwind/react";
+import { toast, ToastContainer } from "react-toastify";
+import 'react-toastify/dist/ReactToastify.css';
 
 export function Upload() {
   const [selectedFile, setSelectedFile] = useState(null);
-  const [fileName, setFileName] = useState(''); // State for custom file name
+  const [folder, setFolder] = useState("invoice"); // Default folder selection
 
   const config = {
     region: import.meta.env.VITE_REGION,
@@ -22,57 +22,61 @@ export function Upload() {
   };
 
   const uploadFile = async (file) => {
-    if (!fileName) {
-      toast.error("Please enter a file name before uploading."); // Show error if no file name
+    if (!file) {
+      toast.error("Please select a file before uploading.");
       return;
     }
+
+    const fileName = file.name; // Automatically use the file's name
+    const key = `${folder}/${fileName}`; // Construct the S3 key with the folder
 
     const s3Client = new S3Client({ region: config.region, credentials: config.credentials });
 
     const command = new PutObjectCommand({
       Bucket: config.bucketName,
-      Key: fileName, // Use the custom file name
+      Key: key,
       Body: file,
     });
 
     try {
       const data = await s3Client.send(command);
       console.log("Success, file uploaded:", data);
-      toast.success("File uploaded successfully!"); // Show success toast
+      toast.success(`File uploaded successfully to the "${folder}" folder!`);
     } catch (err) {
       console.error("Error uploading file:", err);
-      toast.error("Error uploading file. Please try again."); // Show error toast
+      toast.error("Error uploading file. Please try again.");
     }
   };
 
   return (
     <div className="mt-12 mb-8 flex flex-col gap-12">
-      <ToastContainer /> {/* Container for toasts */}
+      <ToastContainer />
       <Card>
         <CardHeader variant="gradient" color="gray" className="mb-6 p-6">
           <Typography variant="h6" color="white">
-            Upload Proof of auction payment - Invoice
+            Upload Proof of Auction Payment
           </Typography>
         </CardHeader>
         <CardBody className="flex flex-col gap-4">
+          <Select 
+            label="Select Folder" 
+            onChange={(value) => setFolder(value)} 
+            value={folder}
+          >
+            <Option value="invoice">Invoice</Option>
+            <Option value="receipt">Receipt</Option>
+          </Select>
           <input type="file" onChange={handleFileInput} />
-          <input 
-            type="text" 
-            placeholder="Enter file name" // Placeholder for file name input
-            value={fileName} 
-            onChange={(e) => setFileName(e.target.value)} 
-            className="border p-2"
-          />
           <Button
             onClick={() => uploadFile(selectedFile)}
-            disabled={!selectedFile} // Disable button if no file is selected
+            disabled={!selectedFile} 
             variant="gradient"
           >
-            Upload Invoice 
+            Upload File
           </Button>
         </CardBody>
       </Card>
-      </div>
+    </div>
   );
 }
 

@@ -108,7 +108,7 @@ export function Notifications() {
             <table className="w-full min-w-[640px] table-auto">
               <thead>
                 <tr>
-                  {["ID", "Type", "Weight", "Age", "Confirmed", "AuctionPrice", "Selling Price", "Color", "Gender", "Arrival Date", "Invoice", ""].map((header) => (
+                  {["ID", "Type", "Weight", "Auctioneer", "Confirmed", "AuctionPrice", "Selling Price", "Color", "Gender", "Arrival Date", "Invoice", ""].map((header) => (
                     <th key={header} className="border-b border-blue-gray-50 py-3 px-5 text-left" onClick={() => requestSort(header.toLowerCase())}>
                       <Typography variant="small" className="text-[11px] font-bold uppercase text-blue-gray-400 cursor-pointer">
                         {header}
@@ -118,7 +118,7 @@ export function Notifications() {
                 </tr>
               </thead>
               <tbody>
-                {sortedAnimals().map(({ id, animalType, weight, age, isConfirmed, auctionPrice, sellingPrice, color, sex, arrivalDate }, key) => (
+                {sortedAnimals().map(({ id, animalType, weight, auctioneer, isConfirmed, auctionPrice, sellingPrice, color, sex, arrivalDate }, key) => (
                   <tr key={id}>
                     <td className={`py-3 px-5 ${key === animals.length - 1 ? "" : "border-b border-blue-gray-50"}`}>
                       <Typography variant="small" color="blue-gray" className="font-semibold">{id}</Typography>
@@ -130,7 +130,7 @@ export function Notifications() {
                       <Typography variant="small" color="blue-gray" className="font-semibold">{weight} kg</Typography>
                     </td>
                     <td className={`py-3 px-5 ${key === animals.length - 1 ? "" : "border-b border-blue-gray-50"}`}>
-                      <Typography variant="small" color="blue-gray" className="font-semibold">{age} years</Typography>
+                      <Typography variant="small" color="blue-gray" className="font-semibold">{auctioneer}</Typography>
                     </td>
                     <td className={`py-3 px-5 ${key === animals.length - 1 ? "" : "border-b border-blue-gray-50"}`}>
                       <Chip variant="gradient" color={isConfirmed === true ? "green" : "red"} value={isConfirmed} className="py-0.5 px-2 text-[11px] font-medium w-fit" />
